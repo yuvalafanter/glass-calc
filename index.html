@@ -104,6 +104,7 @@
       const wall1 = parseFloat(document.getElementById('wall1').value);
       const wall2 = parseFloat(document.getElementById('wall2').value);
       const glassPrice = parseFloat(document.getElementById('glassType').value);
+      const vatRate = 0.18;
 
       if (isNaN(height) || isNaN(wall1) || isNaN(wall2) || isNaN(glassPrice)) {
         alert('אנא מלא את כל השדות כראוי.');
@@ -112,9 +113,13 @@
 
       const area = height * (wall1 + wall2);
       const price = area * glassPrice;
+      const priceWithVAT = price * (1 + vatRate);
 
       resultBox.style.display = 'block';
-      resultBox.textContent = `המחיר הכולל (לפני מע״מ): ₪${price.toFixed(2)}`;
+      resultBox.innerHTML = `
+        <strong>המחיר לפני מע״מ:</strong> ₪${price.toFixed(2)}<br>
+        <strong>המחיר כולל מע״מ (18%):</strong> ₪${priceWithVAT.toFixed(2)}
+      `;
     });
   </script>
 
