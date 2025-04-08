@@ -196,6 +196,32 @@
         <input type="number" step="0.01" min="0" id="deviationBottom" placeholder="סטייה קיר למטה (מ׳)" required>
       `;
     }
+
+    if (type === 'rectangular-partition' || type === 'rectangular-slant') {
+      measurementsDiv.innerHTML += `
+        <label for="partitionWidth">רוחב קיר מחיצה (Q):</label>
+        <input type="number" step="0.01" min="0" id="partitionWidth" placeholder="רוחב קיר מחיצה (מ׳)" required>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="partitionHeight">גובה קיר מחיצה (W):</label>
+        <input type="number" step="0.01" min="0" id="partitionHeight" placeholder="גובה קיר מחיצה (מ׳)" required>
+      `;
+    }
+
+    if (type === 'rectangular-slant' || type === 'shower-door-with-slant') {
+      measurementsDiv.innerHTML += `
+        <label for="slantHeight">גובה תחילת השיפוע (W):</label>
+        <input type="number" step="0.01" min="0" id="slantHeight" placeholder="גובה תחילת השיפוע (מ׳)" required>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="slantAngle">ערך זווית השיפוע (α):</label>
+        <input type="number" step="0.01" min="0" id="slantAngle" placeholder="ערך זווית השיפוע (α)" required>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="bathroomHeight">גובה חדר האמבטיה (H):</label>
+        <input type="number" step="0.01" min="0" id="bathroomHeight" placeholder="גובה חדר האמבטיה (מ׳)" required>
+      `;
+    }
   });
 
   form.addEventListener('submit', function (e) {
@@ -228,6 +254,21 @@
 
       // חישוב מחיר לפי סוג המקלחון
       price = minWidth * height; // דוגמה לחישוב מחיר בסיסי
+    }
+
+    if (type === 'rectangular-partition' || type === 'rectangular-slant') {
+      const partitionWidth = parseFloat(document.getElementById('partitionWidth').value);
+      const partitionHeight = parseFloat(document.getElementById('partitionHeight').value);
+      // חישוב נוסף למחיצות לפי רוחב וגובה המחיצה
+      price += partitionWidth * partitionHeight;
+    }
+
+    if (type === 'rectangular-slant' || type === 'shower-door-with-slant') {
+      const slantHeight = parseFloat(document.getElementById('slantHeight').value);
+      const slantAngle = parseFloat(document.getElementById('slantAngle').value);
+      const bathroomHeight = parseFloat(document.getElementById('bathroomHeight').value);
+      // חישוב נוסף עבור שיפוע וזווית
+      price += (bathroomHeight - slantHeight) * Math.tan((slantAngle * Math.PI) / 180);
     }
 
     const vatRate = 0.18;
