@@ -31,22 +31,20 @@
       border: 1px solid #ccc;
     }
 
-    .flex-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .flex-row > div {
-      flex: 1;
-      min-width: 120px;
-    }
-
     label {
       display: block;
       margin-top: 15px;
       font-weight: 600;
       color: #0055a5;
+    }
+
+    .flex-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .flex-row input {
+      flex: 1;
     }
 
     input, select, button {
@@ -90,34 +88,41 @@
 <h1>מחשבון מחיר מקלחון</h1>
 
 <form id="calculatorForm">
+  <label>מידות המקלחון:</label>
   <div class="flex-row">
-    <div>
-      <label for="height">גובה (מ'):</label>
-      <input type="number" step="0.01" min="0" id="height" required>
-    </div>
-    <div>
-      <label for="wall1">רוחב קיר 1 (מ'):</label>
-      <input type="number" step="0.01" min="0" id="wall1" required>
-    </div>
-    <div>
-      <label for="wall2">רוחב קיר 2 (מ'):</label>
-      <input type="number" step="0.01" min="0" id="wall2" required>
-    </div>
+    <input type="number" step="0.01" min="0" id="height" placeholder="גובה (מ׳)" required>
+    <input type="number" step="0.01" min="0" id="wall1" placeholder="רוחב קיר 1 (מ׳)" required>
+    <input type="number" step="0.01" min="0" id="wall2" placeholder="רוחב קיר 2 (מ׳)" required>
   </div>
 
   <label for="glassType">בחר סוג זכוכית:</label>
   <select id="glassType" required>
     <option value="" disabled selected>בחר סוג זכוכית</option>
-    <option value="80">4 מ"מ - שקוף (₪80)</option>
-    <option value="95">6 מ"מ - שקוף (₪95)</option>
-    <option value="155">6 מ"מ - חלבי/טנדר (₪155)</option>
-    <option value="180">6 מ"מ - ברונזה (₪180)</option>
-    <option value="165">6 מ"מ - אסיד (₪165)</option>
-    <option value="210">6 מ"מ - אקסט-קליר (₪210)</option>
-    <option value="230">8 מ"מ - אסיד (₪230)</option>
-    <option value="250">8 מ"מ - אקסט-קליר (₪250)</option>
-    <option value="225">8 מ"מ - מאסטר קארה (₪225)</option>
-    <option value="260">8 מ"מ - גלייט/פסיפס (₪260)</option>
+    <option value="80">4 מ״מ - שקוף (₪80)</option>
+    <option value="95">6 מ״מ - שקוף (₪95)</option>
+    <option value="155">6 מ״מ - חלבי/טנדר (₪155)</option>
+    <option value="180">6 מ״מ - ברונזה (₪180)</option>
+    <option value="165">6 מ״מ - אסיד (₪165)</option>
+    <option value="210">6 מ״מ - אקסט-קליר (₪210)</option>
+    <option value="210">6 מ״מ - אסיד קליר (₪210)</option>
+    <option value="155">8 מ״מ - שקוף (₪155)</option>
+    <option value="170">8 מ״מ - חלבי/טנדר (₪170)</option>
+    <option value="180">8 מ״מ - ברונזה (₪180)</option>
+    <option value="165">8 מ״מ - אסיד (₪165)</option>
+    <option value="210">8 מ״מ - אקסט-קליר (₪210)</option>
+    <option value="210">8 מ״מ - אסיד קליר (₪210)</option>
+    <option value="260">8 מ״מ - מאסטר קארה (₪260)</option>
+    <option value="260">8 מ״מ - גלייט/פסיפס (₪260)</option>
+    <option value="230">10 מ״מ - מט אסיד (₪230)</option>
+    <option value="250">10 מ״מ - שקוף (₪250)</option>
+    <option value="250">10 מ״מ - קליר (₪250)</option>
+    <option value="280">10 מ״מ - אסיד רגיל (₪280)</option>
+    <option value="280">10 מ״מ - אסיד קליר (₪280)</option>
+    <option value="250">10 מ״מ - אפור (₪250)</option>
+    <option value="330">12 מ״מ - קליר (₪330)</option>
+    <option value="350">12 מ״מ - שקוף (₪350)</option>
+    <option value="540">15 מ״מ - שקוף (₪540)</option>
+    <option value="650">15 מ״מ - קליר (₪650)</option>
   </select>
 
   <label for="shape">בחר צורת מקלחון:</label>
@@ -161,8 +166,8 @@
 
     resultBox.style.display = 'block';
     resultBox.innerHTML = `
-      <strong>המחיר לפני מע"מ:</strong> ₪${price.toFixed(2)}<br>
-      <strong>המחיר כולל מע"מ (18%):</strong> ₪${priceWithVAT.toFixed(2)}
+      <strong>המחיר לפני מע״מ:</strong> ₪${price.toFixed(2)}<br>
+      <strong>המחיר כולל מע״מ (18%):</strong> ₪${priceWithVAT.toFixed(2)}
     `;
   });
 </script>
