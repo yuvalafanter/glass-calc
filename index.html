@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>מחשבון מחיר מקלחון</title>
+  <title>מחשבון מדידה ותמחור מקלחון</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600&display=swap');
     @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
@@ -100,85 +100,140 @@
 </head>
 <body>
 
-<h1><i class="fas fa-calculator"></i> מחשבון מחיר מקלחון</h1>
+<h1><i class="fas fa-calculator"></i> מחשבון מדידה ותמחור מקלחון</h1>
 
 <form id="calculatorForm">
-  <label for="height">מידות המקלחון:</label>
-  <div class="flex-row">
-    <input type="number" step="0.01" min="0" id="height" placeholder="גובה (מ׳)" required>
-    <input type="number" step="0.01" min="0" id="wall1" placeholder="רוחב קיר 1 (מ׳)" required>
-    <input type="number" step="0.01" min="0" id="wall2" placeholder="רוחב קיר 2 (מ׳)" required>
-  </div>
-
-  <label for="glassType">בחר סוג זכוכית:</label>
-  <select id="glassType" required>
-    <option value="" disabled selected>בחר סוג זכוכית</option>
-    <option value="80">4 מ״מ - שקוף (₪80)</option>
-    <option value="95">6 מ״מ - שקוף (₪95)</option>
-    <option value="155">6 מ״מ - חלבי/טנדר (₪155)</option>
-    <option value="180">6 מ״מ - ברונזה (₪180)</option>
-    <option value="165">6 מ״מ - אסיד (₪165)</option>
-    <option value="210">6 מ״מ - אקסט-קליר (₪210)</option>
-    <option value="210">6 מ״מ - אסיד קליר (₪210)</option>
-    <option value="155">8 מ״מ - שקוף (₪155)</option>
-    <option value="170">8 מ״מ - חלבי/טנדר (₪170)</option>
-    <option value="180">8 מ״מ - ברונזה (₪180)</option>
-    <option value="165">8 מ״מ - אסיד (₪165)</option>
-    <option value="210">8 מ״מ - אקסט-קליר (₪210)</option>
-    <option value="210">8 מ״מ - אסיד קליר (₪210)</option>
-    <option value="260">8 מ״מ - מאסטר קארה (₪260)</option>
-    <option value="260">8 מ״מ - גלייט/פסיפס (₪260)</option>
-    <option value="230">10 מ״מ - מט אסיד (₪230)</option>
-    <option value="250">10 מ״מ - שקוף (₪250)</option>
-    <option value="250">10 מ״מ - קליר (₪250)</option>
-    <option value="280">10 מ״מ - אסיד רגיל (₪280)</option>
-    <option value="280">10 מ״מ - אסיד קליר (₪280)</option>
-    <option value="250">10 מ״מ - אפור (₪250)</option>
-    <option value="330">12 מ״מ - קליר (₪330)</option>
-    <option value="350">12 מ״מ - שקוף (₪350)</option>
-    <option value="540">15 מ״מ - שקוף (₪540)</option>
-    <option value="650">15 מ״מ - קליר (₪650)</option>
+  <label for="type">בחר סוג מקלחון:</label>
+  <select id="type" required>
+    <option value="" disabled selected>בחר סוג מקלחון</option>
+    <option value="quadrant">מקלחון רבע עגול</option>
+    <option value="rectangular">מקלחון מלבני</option>
+    <option value="wall-adjacent">מקלחון צמוד קיר</option>
+    <option value="shower-door">דלת מקלחון</option>
+    <option value="bathtub-screen">מסך אמבטיה</option>
+    <option value="rectangular-partition">מקלחון מלבני עם קיר מחיצה</option>
+    <option value="rectangular-slant">מקלחון מלבני עם שיפוע</option>
   </select>
 
-  <label for="shape">בחר צורת מקלחון:</label>
-  <select id="shape" required>
-    <option value="" disabled selected>בחר צורת מקלחון</option>
-    <option value="front">מקלחון חזיתי</option>
-    <option value="corner">מקלחון פינתי</option>
-    <option value="partial-bath">אמבטיון סגירה חלקית</option>
-    <option value="full-bath-front">אמבטיון סגירה מלאה חזיתי</option>
-    <option value="full-bath-corner">אמבטיון סגירה מלאה פינתי</option>
-    <option value="slide-tube">מקלחון הזזה צינור</option>
-    <option value="hidden-slide">מקלחון הזזה מסילה מוסתרת</option>
-    <option value="cnc-slide">מקלחון הזזה CNC</option>
-  </select>
+  <div id="measurements"></div>
 
-  <button type="submit"><i class="fas fa-check"></i> חשב מחיר</button>
+  <button type="submit"><i class="fas fa-check"></i> חשב</button>
   <div class="result" id="resultBox"></div>
 </form>
 
 <script>
   const form = document.getElementById('calculatorForm');
+  const measurementsDiv = document.getElementById('measurements');
   const resultBox = document.getElementById('resultBox');
+
+  document.getElementById('type').addEventListener('change', function (e) {
+    const type = e.target.value;
+    measurementsDiv.innerHTML = '';
+
+    if (type === 'quadrant' || type === 'rectangular' || type === 'wall-adjacent') {
+      measurementsDiv.innerHTML += `
+        <label for="installMethod">שיטת התקנה:</label>
+        <select id="installMethod" required>
+          <option value="" disabled selected>בחר שיטת התקנה</option>
+          <option value="tray">על מגש מקלחון</option>
+          <option value="tile-edge">ללא מגש - קו חיצוני של המקלחון על קצה האריח</option>
+          <option value="glass-line">ללא מגש - קו הזכוכית על קצה האריח</option>
+        </select>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="frontWidth">רוחב חלק קדמי (X):</label>
+        <input type="number" step="0.01" min="0" id="frontWidth" placeholder="רוחב חלק קדמי (מ׳)" required>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="sideWidth">רוחב חלק צדדי (Y):</label>
+        <input type="number" step="0.01" min="0" id="sideWidth" placeholder="רוחב חלק צדדי (מ׳)" required>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="height">גובה המקלחון (H):</label>
+        <input type="number" step="0.01" min="0" id="height" placeholder="גובה (מ׳)" required>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="deviationTop">סטייה קיר למעלה:</label>
+        <input type="number" step="0.01" min="0" id="deviationTop" placeholder="סטייה קיר למעלה (מ׳)" required>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="deviationMiddle">סטייה קיר באמצע:</label>
+        <input type="number" step="0.01" min="0" id="deviationMiddle" placeholder="סטייה קיר באמצע (מ׳)" required>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="deviationBottom">סטייה קיר למטה:</label>
+        <input type="number" step="0.01" min="0" id="deviationBottom" placeholder="סטייה קיר למטה (מ׳)" required>
+      `;
+    }
+
+    if (type === 'shower-door' || type === 'bathtub-screen' || type === 'rectangular-partition' || type === 'rectangular-slant') {
+      measurementsDiv.innerHTML += `
+        <label for="nicheWidth1">רוחב נישה למטה (X1):</label>
+        <input type="number" step="0.01" min="0" id="nicheWidth1" placeholder="רוחב נישה למטה (מ׳)" required>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="nicheWidth2">רוחב נישה באמצע (X2):</label>
+        <input type="number" step="0.01" min="0" id="nicheWidth2" placeholder="רוחב נישה באמצע (מ׳)" required>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="nicheWidth3">רוחב נישה למעלה (X3):</label>
+        <input type="number" step="0.01" min="0" id="nicheWidth3" placeholder="רוחב נישה למעלה (מ׳)" required>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="height">גובה המקלחון (H):</label>
+        <input type="number" step="0.01" min="0" id="height" placeholder="גובה (מ׳)" required>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="deviationTop">סטייה קיר למעלה:</label>
+        <input type="number" step="0.01" min="0" id="deviationTop" placeholder="סטייה קיר למעלה (מ׳)" required>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="deviationMiddle">סטייה קיר באמצע:</label>
+        <input type="number" step="0.01" min="0" id="deviationMiddle" placeholder="סטייה קיר באמצע (מ׳)" required>
+      `;
+      measurementsDiv.innerHTML += `
+        <label for="deviationBottom">סטייה קיר למטה:</label>
+        <input type="number" step="0.01" min="0" id="deviationBottom" placeholder="סטייה קיר למטה (מ׳)" required>
+      `;
+    }
+  });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
+    const type = document.getElementById('type').value;
     const height = parseFloat(document.getElementById('height').value);
-    const wall1 = parseFloat(document.getElementById('wall1').value);
-    const wall2 = parseFloat(document.getElementById('wall2').value);
-    const glassPrice = parseFloat(document.getElementById('glassType').value);
-    const vatRate = 0.18;
+    const deviationTop = parseFloat(document.getElementById('deviationTop').value);
+    const deviationMiddle = parseFloat(document.getElementById('deviationMiddle').value);
+    const deviationBottom = parseFloat(document.getElementById('deviationBottom').value);
 
-    if (isNaN(height) || isNaN(wall1) || isNaN(wall2) || isNaN(glassPrice)) {
-      alert('אנא מלא את כל השדות כראוי.');
-      return;
+    let price = 0;
+
+    if (type === 'quadrant' || type === 'rectangular' || type === 'wall-adjacent') {
+      const installMethod = document.getElementById('installMethod').value;
+      const frontWidth = parseFloat(document.getElementById('frontWidth').value);
+      const sideWidth = parseFloat(document.getElementById('sideWidth').value);
+
+      // חישוב מחיר לפי סוג המקלחון
+      price = (frontWidth + sideWidth) * height; // דוגמה לחישוב מחיר בסיסי
     }
 
-    const area = height * (wall1 + wall2);
-    const price = area * glassPrice;
+    if (type === 'shower-door' || type === 'bathtub-screen' || type === 'rectangular-partition' || type === 'rectangular-slant') {
+      const nicheWidth1 = parseFloat(document.getElementById('nicheWidth1').value);
+      const nicheWidth2 = parseFloat(document.getElementById('nicheWidth2').value);
+      const nicheWidth3 = parseFloat(document.getElementById('nicheWidth3').value);
+
+      // חישוב רוחב מינימלי
+      const minWidth = Math.min(nicheWidth1, nicheWidth2, nicheWidth3);
+
+      // חישוב מחיר לפי סוג המקלחון
+      price = minWidth * height; // דוגמה לחישוב מחיר בסיסי
+    }
+
+    const vatRate = 0.18;
     const priceWithVAT = price * (1 + vatRate);
 
+    // הצגת התוצאות
     resultBox.style.display = 'block';
     resultBox.innerHTML = `
       <strong>המחיר לפני מע״מ:</strong> ₪${price.toFixed(2)}<br>
