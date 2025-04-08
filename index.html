@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מחשבון מחיר מקלחון</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding: 20px; direction: rtl; }
+    label, input, select { display: block; margin: 10px auto; }
+    input, select { padding: 8px; width: 250px; font-size: 16px; }
+    button { padding: 10px 20px; font-size: 18px; }
+    #result { margin-top: 20px; font-size: 22px; font-weight: bold; color: green; }
+  </style>
+</head>
+<body>
+  <h1>מחשבון מחיר מקלחון</h1>
+
+  <label>גובה המקלחון (במטר):</label>
+  <input type="number" id="height" step="0.01">
+
+  <label>רוחב קיר 1 (במטר):</label>
+  <input type="number" id="width1" step="0.01">
+
+  <label>רוחב קיר 2 (במטר):</label>
+  <input type="number" id="width2" step="0.01">
+
+  <label>בחר זכוכית:</label>
+  <select id="glassType">
+    <option value="4mm_שקוף">4 מ"מ - שקוף - 80.0 ש"ח</option>
+<option value="5mm_חלב"י מט">5 מ"מ - חלב"י מט - 155.0 ש"ח</option>
+<option value="6mm_שקוף">6 מ"מ - שקוף - 95.0 ש"ח</option>
+<option value="6mm_חלב"י מט">6 מ"מ - חלב"י מט - 170.0 ש"ח</option>
+<option value="6mm_שקוף">6 מ"מ - שקוף - 110.0 ש"ח</option>
+<option value="6mm_אק.קליר">6 מ"מ - אק.קליר - 170.0 ש"ח</option>
+<option value="6mm_אפור">6 מ"מ - אפור - 180.0 ש"ח</option>
+<option value="6mm_גרניט">6 מ"מ - גרניט - 180.0 ש"ח</option>
+<option value="8mm_אסיד">8 מ"מ - אסיד - 165.0 ש"ח</option>
+<option value="8mm_שקוף">8 מ"מ - שקוף - 165.0 ש"ח</option>
+<option value="8mm_אק.קליר">8 מ"מ - אק.קליר - 210.0 ש"ח</option>
+<option value="8mm_אסיד קליר">8 מ"מ - אסיד קליר - 245.0 ש"ח</option>
+<option value="8mm_אפור">8 מ"מ - אפור - 210.0 ש"ח</option>
+<option value="8mm_גרניט">8 מ"מ - גרניט - 240.0 ש"ח</option>
+<option value="8mm_מאסטר קארה">8 מ"מ - מאסטר קארה - 260.0 ש"ח</option>
+<option value="8mm_גליה/פסים">8 מ"מ - גליה/פסים - 295.0 ש"ח</option>
+<option value="8mm_מט אסיד">8 מ"מ - מט אסיד - 235.0 ש"ח</option>
+<option value="10mm_שקוף">10 מ"מ - שקוף - 180.0 ש"ח</option>
+<option value="10mm_קליר">10 מ"מ - קליר - 250.0 ש"ח</option>
+<option value="10mm_אסיד רגיל">10 מ"מ - אסיד רגיל - 310.0 ש"ח</option>
+<option value="10mm_אסיד קליר">10 מ"מ - אסיד קליר - 380.0 ש"ח</option>
+<option value="10mm_אפור">10 מ"מ - אפור - 250.0 ש"ח</option>
+<option value="10mm_שקוף">10 מ"מ - שקוף - 255.0 ש"ח</option>
+<option value="10mm_קליר">10 מ"מ - קליר - 330.0 ש"ח</option>
+<option value="12mm_שקוף">12 מ"מ - שקוף - 540.0 ש"ח</option>
+<option value="12mm_קליר">12 מ"מ - קליר - 650.0 ש"ח</option>
+  </select>
+
+  <button onclick="calculate()">חשב מחיר</button>
+
+  <div id="result"></div>
+
+  <script>
+    const prices = {"4mm_שקוף": 80.0, "5mm_חלב\"י מט": 155.0, "6mm_שקוף": 110.0, "6mm_חלב\"י מט": 170.0, "6mm_אק.קליר": 170.0, "6mm_אפור": 180.0, "6mm_גרניט": 180.0, "8mm_אסיד": 165.0, "8mm_שקוף": 165.0, "8mm_אק.קליר": 210.0, "8mm_אסיד קליר": 245.0, "8mm_אפור": 210.0, "8mm_גרניט": 240.0, "8mm_מאסטר קארה": 260.0, "8mm_גליה/פסים": 295.0, "8mm_מט אסיד": 235.0, "10mm_שקוף": 255.0, "10mm_קליר": 330.0, "10mm_אסיד רגיל": 310.0, "10mm_אסיד קליר": 380.0, "10mm_אפור": 250.0, "12mm_שקוף": 540.0, "12mm_קליר": 650.0};
+
+    function calculate() {
+      const height = parseFloat(document.getElementById('height').value);
+      const width1 = parseFloat(document.getElementById('width1').value);
+      const width2 = parseFloat(document.getElementById('width2').value);
+      const glassKey = document.getElementById('glassType').value;
+
+      if (isNaN(height) || isNaN(width1) || isNaN(width2)) {
+        document.getElementById('result').innerText = "אנא מלא את כל השדות.";
+        return;
+      }
+
+      const area = height * (width1 + width2);
+      const pricePerM = prices[glassKey];
+
+      if (!pricePerM) {
+        document.getElementById('result').innerText = "שגיאה במחיר הזכוכית.";
+        return;
+      }
+
+      const total = area * pricePerM;
+      document.getElementById('result').innerText = "סה"כ לפני מע"מ: " + total.toFixed(2) + " ש"ח";
+    }
+  </script>
+</body>
+</html>
