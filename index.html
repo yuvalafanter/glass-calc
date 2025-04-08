@@ -25,28 +25,28 @@
       background: white;
       padding: 20px;
       border-radius: 12px;
-      max-width: 600px;
+      max-width: 500px;
       margin: auto;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       border: 1px solid #ccc;
     }
 
-    .row {
+    .flex-row {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
     }
 
-    .row > div {
-      flex: 1 1 30%;
-      min-width: 100px;
+    .flex-row > div {
+      flex: 1;
+      min-width: 120px;
     }
 
     label {
+      display: block;
+      margin-top: 15px;
       font-weight: 600;
       color: #0055a5;
-      margin-top: 10px;
-      display: block;
     }
 
     input, select, button {
@@ -83,89 +83,89 @@
       font-size: 18px;
       border: 1px solid #b2d8b2;
     }
-
-    @media (max-width: 600px) {
-      .row {
-        flex-direction: column;
-      }
-    }
   </style>
 </head>
 <body>
-  <h1>מחשבון מחיר מקלחון</h1>
-  <form id="calculatorForm">
-    <div class="row">
-      <div>
-        <label for="height">גובה (מ׳):</label>
-        <input type="number" step="0.01" min="0" id="height" required>
-      </div>
-      <div>
-        <label for="wall1">רוחב קיר 1 (מ׳):</label>
-        <input type="number" step="0.01" min="0" id="wall1" required>
-      </div>
-      <div>
-        <label for="wall2">רוחב קיר 2 (מ׳):</label>
-        <input type="number" step="0.01" min="0" id="wall2" required>
-      </div>
+
+<h1>מחשבון מחיר מקלחון</h1>
+
+<form id="calculatorForm">
+  <div class="flex-row">
+    <div>
+      <label for="height">גובה (מ'):</label>
+      <input type="number" step="0.01" min="0" id="height" required>
     </div>
+    <div>
+      <label for="wall1">רוחב קיר 1 (מ'):</label>
+      <input type="number" step="0.01" min="0" id="wall1" required>
+    </div>
+    <div>
+      <label for="wall2">רוחב קיר 2 (מ'):</label>
+      <input type="number" step="0.01" min="0" id="wall2" required>
+    </div>
+  </div>
 
-    <label for="glassType">בחר סוג זכוכית:</label>
-    <select id="glassType" required>
-      <option value="80">4 מ״מ - שקוף (₪80)</option>
-      <option value="95">6 מ״מ - שקוף (₪95)</option>
-      <option value="155">6 מ״מ - חלבי/טנדר (₪155)</option>
-      <option value="180">6 מ״מ - ברונזה (₪180)</option>
-      <option value="165">6 מ״מ - אסיד (₪165)</option>
-      <option value="210">6 מ״מ - אקסט-קליר (₪210)</option>
-      <option value="230">8 מ״מ - אסיד (₪230)</option>
-      <option value="250">8 מ״מ - אקסט-קליר (₪250)</option>
-      <option value="225">8 מ״מ - מאסטר קארה (₪225)</option>
-      <option value="260">8 מ״מ - גלייט/פסיפס (₪260)</option>
-    </select>
+  <label for="glassType">בחר סוג זכוכית:</label>
+  <select id="glassType" required>
+    <option value="" disabled selected>בחר סוג זכוכית</option>
+    <option value="80">4 מ"מ - שקוף (₪80)</option>
+    <option value="95">6 מ"מ - שקוף (₪95)</option>
+    <option value="155">6 מ"מ - חלבי/טנדר (₪155)</option>
+    <option value="180">6 מ"מ - ברונזה (₪180)</option>
+    <option value="165">6 מ"מ - אסיד (₪165)</option>
+    <option value="210">6 מ"מ - אקסט-קליר (₪210)</option>
+    <option value="230">8 מ"מ - אסיד (₪230)</option>
+    <option value="250">8 מ"מ - אקסט-קליר (₪250)</option>
+    <option value="225">8 מ"מ - מאסטר קארה (₪225)</option>
+    <option value="260">8 מ"מ - גלייט/פסיפס (₪260)</option>
+  </select>
 
-    <label for="shape">בחר צורת מקלחון:</label>
-    <select id="shape" required>
-      <option value="front">מקלחון חזיתי</option>
-      <option value="corner">מקלחון פינתי</option>
-      <option value="partial-bath">אמבטיון סגירה חלקית</option>
-      <option value="full-bath-front">אמבטיון סגירה מלאה חזיתי</option>
-      <option value="full-bath-corner">אמבטיון סגירה מלאה פינתי</option>
-      <option value="slide-tube">מקלחון הזזה צינור</option>
-      <option value="hidden-slide">מקלחון הזזה מסילה מוסתרת</option>
-      <option value="cnc-slide">מקלחון הזזה CNC</option>
-    </select>
+  <label for="shape">בחר צורת מקלחון:</label>
+  <select id="shape" required>
+    <option value="" disabled selected>בחר צורת מקלחון</option>
+    <option value="front">מקלחון חזיתי</option>
+    <option value="corner">מקלחון פינתי</option>
+    <option value="partial-bath">אמבטיון סגירה חלקית</option>
+    <option value="full-bath-front">אמבטיון סגירה מלאה חזיתי</option>
+    <option value="full-bath-corner">אמבטיון סגירה מלאה פינתי</option>
+    <option value="slide-tube">מקלחון הזזה צינור</option>
+    <option value="hidden-slide">מקלחון הזזה מסילה מוסתרת</option>
+    <option value="cnc-slide">מקלחון הזזה CNC</option>
+  </select>
 
-    <button type="submit">חשב מחיר</button>
-    <div class="result" id="resultBox"></div>
-  </form>
+  <button type="submit">חשב מחיר</button>
+  <div class="result" id="resultBox"></div>
+</form>
 
-  <script>
-    const form = document.getElementById('calculatorForm');
-    const resultBox = document.getElementById('resultBox');
+<script>
+  const form = document.getElementById('calculatorForm');
+  const resultBox = document.getElementById('resultBox');
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-      const height = parseFloat(document.getElementById('height').value);
-      const wall1 = parseFloat(document.getElementById('wall1').value);
-      const wall2 = parseFloat(document.getElementById('wall2').value);
-      const glassPrice = parseFloat(document.getElementById('glassType').value);
-      const vatRate = 0.18;
+    const height = parseFloat(document.getElementById('height').value);
+    const wall1 = parseFloat(document.getElementById('wall1').value);
+    const wall2 = parseFloat(document.getElementById('wall2').value);
+    const glassPrice = parseFloat(document.getElementById('glassType').value);
+    const vatRate = 0.18;
 
-      if (isNaN(height) || isNaN(wall1) || isNaN(wall2) || isNaN(glassPrice)) {
-        alert('אנא מלא את כל השדות כראוי.');
-        return;
-      }
+    if (isNaN(height) || isNaN(wall1) || isNaN(wall2) || isNaN(glassPrice)) {
+      alert('אנא מלא את כל השדות כראוי.');
+      return;
+    }
 
-      const area = height * (wall1 + wall2);
-      const price = area * glassPrice;
-      const priceWithVAT = price * (1 + vatRate);
+    const area = height * (wall1 + wall2);
+    const price = area * glassPrice;
+    const priceWithVAT = price * (1 + vatRate);
 
-      resultBox.innerHTML = `
-        <strong>המחיר לפני מע״מ:</strong> ₪${price.toFixed(2)}<br>
-        <strong>המחיר כולל מע״מ (18%):</strong> ₪${priceWithVAT.toFixed(2)}
-      `;
-    });
-  </script>
+    resultBox.style.display = 'block';
+    resultBox.innerHTML = `
+      <strong>המחיר לפני מע"מ:</strong> ₪${price.toFixed(2)}<br>
+      <strong>המחיר כולל מע"מ (18%):</strong> ₪${priceWithVAT.toFixed(2)}
+    `;
+  });
+</script>
+
 </body>
 </html>
