@@ -208,7 +208,7 @@
       `;
     }
 
-    if (type === 'rectangular-slant' || type === 'shower-door-with-slant') {
+    if (type === 'rectangular-slant') {
       measurementsDiv.innerHTML += `
         <label for="slantHeight">גובה תחילת השיפוע (W):</label>
         <input type="number" step="0.01" min="0" id="slantHeight" placeholder="גובה תחילת השיפוע (מ׳)" required>
@@ -263,7 +263,7 @@
       price += partitionWidth * partitionHeight;
     }
 
-    if (type === 'rectangular-slant' || type === 'shower-door-with-slant') {
+    if (type === 'rectangular-slant') {
       const slantHeight = parseFloat(document.getElementById('slantHeight').value);
       const slantAngle = parseFloat(document.getElementById('slantAngle').value);
       const bathroomHeight = parseFloat(document.getElementById('bathroomHeight').value);
