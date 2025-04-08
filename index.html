@@ -2,10 +2,121 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>בודק טעינה</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מחשבון מחיר מקלחון</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+      direction: rtl;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 16px;
+    }
+    .result {
+      margin-top: 20px;
+      background: #e0ffe0;
+      padding: 15px;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 18px;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <h1>המחשבון עלה בהצלחה!</h1>
-  <p>אם אתה רואה את זה – סימן שהאתר שלך באוויר!</p>
+
+  <h1>מחשבון מחיר מקלחון</h1>
+
+  <form id="calculatorForm">
+    <label for="height">גובה המקלחון (במטר):</label>
+    <input type="number" step="0.01" min="0" id="height" required>
+
+    <label for="wall1">רוחב קיר 1 (במטר):</label>
+    <input type="number" step="0.01" min="0" id="wall1" required>
+
+    <label for="wall2">רוחב קיר 2 (במטר):</label>
+    <input type="number" step="0.01" min="0" id="wall2" required>
+
+    <label for="glassType">בחר סוג זכוכית:</label>
+    <select id="glassType" required>
+      <option value="" disabled selected>בחר סוג זכוכית</option>
+      <option value="80">4 מ״מ - שקוף</option>
+      <option value="95">6 מ״מ - שקוף</option>
+      <option value="155">6 מ״מ - חלבי/טנדר</option>
+      <option value="180">6 מ״מ - ברונזה</option>
+      <option value="165">6 מ״מ - אסיד</option>
+      <option value="210">6 מ״מ - אקסט-קליר</option>
+      <option value="210">6 מ״מ - אסיד קליר</option>
+      <option value="155">8 מ״מ - שקוף</option>
+      <option value="170">8 מ״מ - חלבי/טנדר</option>
+      <option value="180">8 מ״מ - ברונזה</option>
+      <option value="165">8 מ״מ - אסיד</option>
+      <option value="210">8 מ״מ - אקסט-קליר</option>
+      <option value="210">8 מ״מ - אסיד קליר</option>
+      <option value="260">8 מ״מ - מאסטר קארה</option>
+      <option value="260">8 מ״מ - גלייט/פסיפס</option>
+      <option value="230">10 מ״מ - מט אסיד</option>
+      <option value="250">10 מ״מ - שקוף</option>
+      <option value="250">10 מ״מ - קליר</option>
+      <option value="280">10 מ״מ - אסיד רגיל</option>
+      <option value="280">10 מ״מ - אסיד קליר</option>
+      <option value="250">10 מ״מ - אפור</option>
+      <option value="330">12 מ״מ - קליר</option>
+      <option value="350">12 מ״מ - שקוף</option>
+      <option value="540">15 מ״מ - שקוף</option>
+      <option value="650">15 מ״מ - קליר</option>
+    </select>
+
+    <button type="submit">חשב מחיר</button>
+
+    <div class="result" id="resultBox"></div>
+  </form>
+
+  <script>
+    const form = document.getElementById('calculatorForm');
+    const resultBox = document.getElementById('resultBox');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const height = parseFloat(document.getElementById('height').value);
+      const wall1 = parseFloat(document.getElementById('wall1').value);
+      const wall2 = parseFloat(document.getElementById('wall2').value);
+      const glassPrice = parseFloat(document.getElementById('glassType').value);
+
+      if (isNaN(height) || isNaN(wall1) || isNaN(wall2) || isNaN(glassPrice)) {
+        alert('אנא מלא את כל השדות כראוי.');
+        return;
+      }
+
+      const area = height * (wall1 + wall2);
+      const price = area * glassPrice;
+
+      resultBox.style.display = 'block';
+      resultBox.textContent = `המחיר הכולל (לפני מע״מ): ₪${price.toFixed(2)}`;
+    });
+  </script>
+
 </body>
 </html>
