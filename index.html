@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>מחשבון מחיר מקלחון</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600&display=swap');
 
     body {
       font-family: 'Assistant', sans-serif;
-      margin: 20px;
       background-color: #f4f4f4;
-      direction: rtl;
       color: #333;
+      margin: 0;
+      padding: 20px;
     }
 
     h1 {
       text-align: center;
-      font-weight: 600;
       color: #0055a5;
+      font-weight: 600;
     }
 
     form {
-      background: white;
+      background-color: #fff;
+      max-width: 600px;
+      margin: auto;
       padding: 20px;
       border-radius: 12px;
-      max-width: 500px;
-      margin: auto;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      border: 1px solid #ccc;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     label {
@@ -39,23 +38,31 @@
     }
 
     input, select, button {
-      box-sizing: border-box;
       width: 100%;
       padding: 10px;
       margin-top: 5px;
       font-size: 16px;
       border-radius: 8px;
       border: 1px solid #ccc;
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
+
+    select option {
+      color: #000;
+    }
+
+    select option::after {
+      color: #999;
     }
 
     button {
       background-color: #0055a5;
       color: white;
       font-weight: bold;
-      cursor: pointer;
       border: none;
-      transition: all 0.3s ease;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: 0.3s;
     }
 
     button:hover {
@@ -63,75 +70,61 @@
     }
 
     .result {
-      margin-top: 20px;
-      background: #e8f8e8;
+      background-color: #e8f8e8;
+      border: 1px solid #b2d8b2;
       padding: 15px;
       border-radius: 8px;
+      margin-top: 20px;
       text-align: center;
       font-size: 18px;
-      border: 1px solid #b2d8b2;
-    }
-
-    option.gray-price {
-      color: #333;
     }
   </style>
 </head>
 <body>
-
   <h1>מחשבון מחיר מקלחון</h1>
-
   <form id="calculatorForm">
     <label for="height">גובה המקלחון (במטר):</label>
-    <input type="number" step="0.01" min="0" id="height" required>
+    <input type="number" step="0.01" id="height" required>
 
     <label for="wall1">רוחב קיר 1 (במטר):</label>
-    <input type="number" step="0.01" min="0" id="wall1" required>
+    <input type="number" step="0.01" id="wall1" required>
 
     <label for="wall2">רוחב קיר 2 (במטר):</label>
-    <input type="number" step="0.01" min="0" id="wall2" required>
+    <input type="number" step="0.01" id="wall2" required>
 
     <label for="glassType">בחר סוג זכוכית:</label>
     <select id="glassType" required>
-      <option value="" disabled selected>בחר סוג זכוכית</option>
-      <option value="80">4 מ״מ - שקוף (₪80)</option>
-      <option value="95">6 מ״מ - שקוף (₪95)</option>
-      <option value="155">6 מ״מ - חלבי/טנדר (₪155)</option>
-      <option value="180">6 מ״מ - ברונזה (₪180)</option>
-      <option value="165">6 מ״מ - אסיד (₪165)</option>
-      <option value="210">6 מ״מ - אקסט-קליר (₪210)</option>
+      <option value="80">4 מ"מ - שקוף (₪80)</option>
+      <option value="95">6 מ"מ - שקוף (₪95)</option>
+      <option value="155">6 מ"מ - חלבי/טנדר (₪155)</option>
+      <option value="180">6 מ"מ - ברונזה (₪180)</option>
+      <option value="165">6 מ"מ - אסיד (₪165)</option>
+      <option value="210">6 מ"מ - אקסט-קליר (₪210)</option>
     </select>
 
     <label for="shape">בחר צורת מקלחון:</label>
     <select id="shape" required>
-      <option value="" disabled selected>בחר צורת מקלחון</option>
-      <option value="front">מקלחון חזיתי</option>
-      <option value="corner">מקלחון פינתי</option>
-      <option value="partial-bath">אמבטיון סגירה חלקית</option>
-      <option value="full-bath-front">אמבטיון סגירה מלאה חזיתי</option>
-      <option value="full-bath-corner">אמבטיון סגירה מלאה פינתי</option>
-      <option value="slide-tube">מקלחון הזזה צינור</option>
-      <option value="hidden-slide">מקלחון הזזה מסילה מוסתרת</option>
-      <option value="cnc-slide">מקלחון הזזה CNC</option>
+      <option value="front">חזיתי</option>
+      <option value="corner">פינתי</option>
+      <option value="partial-bath">אמבטיון חלקי</option>
+      <option value="full-bath-front">אמבטיון מלא חזיתי</option>
+      <option value="full-bath-corner">אמבטיון מלא פינתי</option>
+      <option value="slide-tube">הזזה צינור</option>
+      <option value="hidden-slide">מסילה מוסתרת</option>
+      <option value="cnc-slide">הזזה CNC</option>
     </select>
 
     <button type="submit">חשב מחיר</button>
-
     <div class="result" id="resultBox"></div>
   </form>
 
   <script>
-    const form = document.getElementById('calculatorForm');
-    const resultBox = document.getElementById('resultBox');
-
-    form.addEventListener('submit', function (e) {
+    document.getElementById('calculatorForm').addEventListener('submit', function(e) {
       e.preventDefault();
-
       const height = parseFloat(document.getElementById('height').value);
       const wall1 = parseFloat(document.getElementById('wall1').value);
       const wall2 = parseFloat(document.getElementById('wall2').value);
-      const glassType = document.getElementById('glassType');
-      const glassPrice = parseFloat(glassType.value);
+      const glassPrice = parseFloat(document.getElementById('glassType').value);
       const vatRate = 0.18;
 
       if (isNaN(height) || isNaN(wall1) || isNaN(wall2) || isNaN(glassPrice)) {
@@ -141,15 +134,12 @@
 
       const area = height * (wall1 + wall2);
       const price = area * glassPrice;
-      const priceWithVAT = price * (1 + vatRate);
+      const priceWithVat = price * (1 + vatRate);
 
-      resultBox.style.display = 'block';
-      resultBox.innerHTML = `
-        <strong>המחיר לפני מע״מ:</strong> ₪${price.toFixed(2)}<br>
-        <strong>המחיר כולל מע״מ (18%):</strong> ₪${priceWithVAT.toFixed(2)}
-      `;
+      document.getElementById('resultBox').innerHTML =
+        `<strong>המחיר לפני מע"מ:</strong> ₪${price.toFixed(2)}<br>` +
+        `<strong>המחיר כולל מע"מ (18%):</strong> ₪${priceWithVat.toFixed(2)}`;
     });
   </script>
-
 </body>
 </html>
