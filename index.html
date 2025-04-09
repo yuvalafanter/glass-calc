@@ -3,115 +3,172 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>מחשבון מקלחונים - זכוכיות מעודכנות</title>
+  <title>מחשבון מחיר מקלחון</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600&display=swap');
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Assistant', sans-serif;
       margin: 20px;
-      background-color: #f7f7f7;
+      background-color: #f4f4f4;
       direction: rtl;
+      color: #333;
     }
-    form, .results {
-      background: #fff;
+
+    h1 {
+      text-align: center;
+      font-weight: 600;
+      color: #0055a5;
+    }
+
+    form {
+      background: white;
       padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: 1px solid #ccc;
     }
-    label, select, input, button {
+
+    label {
       display: block;
-      margin-bottom: 10px;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #0055a5;
+    }
+
+    .flex-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .flex-row input {
+      flex: 1;
+    }
+
+    input, select, button {
+      box-sizing: border-box;
       width: 100%;
-    }
-    button {
       padding: 10px;
-      background-color: #007bff;
+      margin-top: 5px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      background-color: #0055a5;
       color: white;
-      border: none;
-      border-radius: 5px;
+      font-weight: bold;
       cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+      margin-top: 20px;
     }
+
     button:hover {
-      background-color: #0056b3;
+      background-color: #003e7e;
     }
-    .result-item {
-      margin: 10px 0;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 10px;
+
+    .result {
+      margin-top: 20px;
+      background: #e8f8e8;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 18px;
+      border: 1px solid #b2d8b2;
     }
   </style>
 </head>
 <body>
 
-<h1>מחשבון מקלחונים</h1>
-<form id="calculatorForm">
-  <label for="length">אורך (מ׳):</label>
-  <input type="number" id="length" step="0.01" required>
-  
-  <label for="width">רוחב (מ׳):</label>
-  <input type="number" id="width" step="0.01" required>
+<h1>מחשבון מחיר מקלחון</h1>
 
-  <label for="height">גובה (מ׳):</label>
-  <input type="number" id="height" step="0.01" required>
+<form id="calculatorForm">
+  <label>מידות המקלחון:</label>
+  <div class="flex-row">
+    <input type="number" step="0.01" min="0" id="height" placeholder="גובה (מ׳)" required>
+    <input type="number" step="0.01" min="0" id="wall1" placeholder="רוחב קיר 1 (מ׳)" required>
+    <input type="number" step="0.01" min="0" id="wall2" placeholder="רוחב קיר 2 (מ׳)" required>
+  </div>
 
   <label for="glassType">בחר סוג זכוכית:</label>
   <select id="glassType" required>
-    <option value="" disabled selected>בחר</option>
-    <option value="transparent-4mm">שקוף - 4 מ״מ (₪80 למ״ר)</option>
-    <option value="matte-4mm">חלב/מט - 4 מ״מ (₪155 למ״ר)</option>
-    <option value="transparent-5mm">שקוף - 5 מ״מ (₪95 למ״ר)</option>
-    <option value="matte-5mm">חלב/מט - 5 מ״מ (₪170 למ״ר)</option>
-    <option value="bronze-5mm">ברונט - 5 מ״מ (₪180 למ״ר)</option>
-    <option value="acid-5mm">אסיד - 5 מ״מ (₪165 למ״ר)</option>
-    <!-- ניתן להוסיף כאן את כל הזכוכיות האחרות מהתמונה -->
+    <option value="" disabled selected>בחר סוג זכוכית</option>
+    <option value="80">4 מ״מ - שקוף (₪80)</option>
+    <option value="95">6 מ״מ - שקוף (₪95)</option>
+    <option value="155">6 מ״מ - חלבי/טנדר (₪155)</option>
+    <option value="180">6 מ״מ - ברונזה (₪180)</option>
+    <option value="165">6 מ״מ - אסיד (₪165)</option>
+    <option value="210">6 מ״מ - אקסט-קליר (₪210)</option>
+    <option value="210">6 מ״מ - אסיד קליר (₪210)</option>
+    <option value="155">8 מ״מ - שקוף (₪155)</option>
+    <option value="170">8 מ״מ - חלבי/טנדר (₪170)</option>
+    <option value="180">8 מ״מ - ברונזה (₪180)</option>
+    <option value="165">8 מ״מ - אסיד (₪165)</option>
+    <option value="210">8 מ״מ - אקסט-קליר (₪210)</option>
+    <option value="210">8 מ״מ - אסיד קליר (₪210)</option>
+    <option value="260">8 מ״מ - מאסטר קארה (₪260)</option>
+    <option value="260">8 מ״מ - גלייט/פסיפס (₪260)</option>
+    <option value="230">10 מ״מ - מט אסיד (₪230)</option>
+    <option value="250">10 מ״מ - שקוף (₪250)</option>
+    <option value="250">10 מ״מ - קליר (₪250)</option>
+    <option value="280">10 מ״מ - אסיד רגיל (₪280)</option>
+    <option value="280">10 מ״מ - אסיד קליר (₪280)</option>
+    <option value="250">10 מ״מ - אפור (₪250)</option>
+    <option value="330">12 מ״מ - קליר (₪330)</option>
+    <option value="350">12 מ״מ - שקוף (₪350)</option>
+    <option value="540">15 מ״מ - שקוף (₪540)</option>
+    <option value="650">15 מ״מ - קליר (₪650)</option>
   </select>
 
-  <button type="submit">חשב</button>
-</form>
+  <label for="shape">בחר צורת מקלחון:</label>
+  <select id="shape" required>
+    <option value="" disabled selected>בחר צורת מקלחון</option>
+    <option value="front">מקלחון חזיתי</option>
+    <option value="corner">מקלחון פינתי</option>
+    <option value="partial-bath">אמבטיון סגירה חלקית</option>
+    <option value="full-bath-front">אמבטיון סגירה מלאה חזיתי</option>
+    <option value="full-bath-corner">אמבטיון סגירה מלאה פינתי</option>
+    <option value="slide-tube">מקלחון הזזה צינור</option>
+    <option value="hidden-slide">מקלחון הזזה מסילה מוסתרת</option>
+    <option value="cnc-slide">מקלחון הזזה CNC</option>
+  </select>
 
-<div class="results">
-  <h2>תוצאות:</h2>
-  <div id="resultsContainer"></div>
-</div>
+  <button type="submit">חשב מחיר</button>
+  <div class="result" id="resultBox"></div>
+</form>
 
 <script>
   const form = document.getElementById('calculatorForm');
-  const resultsContainer = document.getElementById('resultsContainer');
+  const resultBox = document.getElementById('resultBox');
 
-  form.addEventListener('submit', function(e) {
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
-    
-    const length = parseFloat(document.getElementById('length').value);
-    const width = parseFloat(document.getElementById('width').value);
+
     const height = parseFloat(document.getElementById('height').value);
-    const glassType = document.getElementById('glassType').value;
+    const wall1 = parseFloat(document.getElementById('wall1').value);
+    const wall2 = parseFloat(document.getElementById('wall2').value);
+    const glassPrice = parseFloat(document.getElementById('glassType').value);
+    const vatRate = 0.18;
 
-    let pricePerSquareMeter = 0;
+    if (isNaN(height) || isNaN(wall1) || isNaN(wall2) || isNaN(glassPrice)) {
+      alert('אנא מלא את כל השדות כראוי.');
+      return;
+    }
 
-    if (glassType === 'transparent-4mm') pricePerSquareMeter = 80;
-    else if (glassType === 'matte-4mm') pricePerSquareMeter = 155;
-    else if (glassType === 'transparent-5mm') pricePerSquareMeter = 95;
-    else if (glassType === 'matte-5mm') pricePerSquareMeter = 170;
-    else if (glassType === 'bronze-5mm') pricePerSquareMeter = 180;
-    else if (glassType === 'acid-5mm') pricePerSquareMeter = 165;
-    // המשך פרטי הזכוכיות כאן
+    const area = height * (wall1 + wall2);
+    const price = area * glassPrice;
+    const priceWithVAT = price * (1 + vatRate);
 
-    const area = (length + width) * height;
-    const price = area * pricePerSquareMeter;
-
-    const resultHTML = `
-      <div class="result-item">
-        <strong>נפח:</strong> ${area.toFixed(2)} מ״ר<br>
-        <strong>מחיר כולל:</strong> ₪${price.toFixed(2)}
-      </div>
+    resultBox.style.display = 'block';
+    resultBox.innerHTML = `
+      <strong>המחיר לפני מע״מ:</strong> ₪${price.toFixed(2)}<br>
+      <strong>המחיר כולל מע״מ (18%):</strong> ₪${priceWithVAT.toFixed(2)}
     `;
-
-    resultsContainer.innerHTML += resultHTML;
-
-    // אפשרות לשמור תוצאה בדפדפן
-    const savedResults = JSON.parse(localStorage.getItem('savedResults')) || [];
-    savedResults.push({ area: area.toFixed(2), price: price.toFixed(2) });
-    localStorage.setItem('savedResults', JSON.stringify(savedResults));
   });
 </script>
 
