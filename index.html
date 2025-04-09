@@ -125,7 +125,7 @@
     <option value="650">15 מ״מ - קליר (₪650)</option>
   </select>
 
-  <label for="shape">בחר צורת מקלחון:</label>
+  <label for="shape">בחר סוג מקלחון:</label>
   <select id="shape" required>
     <option value="" disabled selected>בחר צורת מקלחון</option>
     <option value="front">מקלחון חזיתי</option>
@@ -166,7 +166,6 @@
 
     resultBox.style.display = 'block';
     resultBox.innerHTML = `
-      <strong>סה\"כ מ\"ר:</strong> ${area.toFixed(2)} מ\"ר<br>
       <strong>המחיר לפני מע״מ:</strong> ₪${price.toFixed(2)}<br>
       <strong>המחיר כולל מע״מ (18%):</strong> ₪${priceWithVAT.toFixed(2)}
     `;
