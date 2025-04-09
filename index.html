@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>מחשבון מקלחונים - עם שמירת תוצאות</title>
+  <title>מחשבון מקלחונים - זכוכיות מעודכנות</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -57,9 +57,13 @@
   <label for="glassType">בחר סוג זכוכית:</label>
   <select id="glassType" required>
     <option value="" disabled selected>בחר</option>
-    <option value="clear">שקופה - ₪80 למ״ר</option>
-    <option value="frosted">חלב/מט - ₪155 למ״ר</option>
-    <option value="acid">אסיד - ₪165 למ״ר</option>
+    <option value="transparent-4mm">שקוף - 4 מ״מ (₪80 למ״ר)</option>
+    <option value="matte-4mm">חלב/מט - 4 מ״מ (₪155 למ״ר)</option>
+    <option value="transparent-5mm">שקוף - 5 מ״מ (₪95 למ״ר)</option>
+    <option value="matte-5mm">חלב/מט - 5 מ״מ (₪170 למ״ר)</option>
+    <option value="bronze-5mm">ברונט - 5 מ״מ (₪180 למ״ר)</option>
+    <option value="acid-5mm">אסיד - 5 מ״מ (₪165 למ״ר)</option>
+    <!-- ניתן להוסיף כאן את כל הזכוכיות האחרות מהתמונה -->
   </select>
 
   <button type="submit">חשב</button>
@@ -84,9 +88,13 @@
 
     let pricePerSquareMeter = 0;
 
-    if (glassType === 'clear') pricePerSquareMeter = 80;
-    else if (glassType === 'frosted') pricePerSquareMeter = 155;
-    else if (glassType === 'acid') pricePerSquareMeter = 165;
+    if (glassType === 'transparent-4mm') pricePerSquareMeter = 80;
+    else if (glassType === 'matte-4mm') pricePerSquareMeter = 155;
+    else if (glassType === 'transparent-5mm') pricePerSquareMeter = 95;
+    else if (glassType === 'matte-5mm') pricePerSquareMeter = 170;
+    else if (glassType === 'bronze-5mm') pricePerSquareMeter = 180;
+    else if (glassType === 'acid-5mm') pricePerSquareMeter = 165;
+    // המשך פרטי הזכוכיות כאן
 
     const area = (length + width) * height;
     const price = area * pricePerSquareMeter;
