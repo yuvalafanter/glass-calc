@@ -126,7 +126,7 @@
   </select>
 
   <label for="shape">בחר סוג מקלחון:</label>
-  <select id="shape" required onchange="updateModelOptions()">
+  <select id="shape" required>
     <option value="" disabled selected>בחר סוג מקלחון</option>
     <option value="front">מקלחון חזיתי</option>
     <option value="corner">מקלחון פינתי</option>
@@ -138,10 +138,25 @@
     <option value="cnc-slide">מקלחון הזזה CNC</option>
   </select>
 
-  <label for="model">דגם מקלחון:</label>
-  <select id="model">
-    <option value="">בחר דגם</option>
-  </select>
+  <div id="modelContainer" style="display:none">
+    <label for="model">דגם מקלחון:</label>
+    <select id="model">
+      <option value="">בחר דגם</option>
+      <option>MTI-718 - דלת</option>
+      <option>MTI-719 - קבוע WALK-IN</option>
+      <option>MTI-720 - קבוע</option>
+      <option>MTI-721 - קבוע ודלת</option>
+      <option>MTI-722 - שתי דלתות</option>
+      <option>MTI-723 - הרמוניקה שתי דלתות</option>
+      <option>MTI-724 - שני קבועים ודלת</option>
+      <option>MTI-725 - קבוע ושתי דלתות</option>
+      <option>MTI-726 - קבוע והרמוניקה שתי דלתות</option>
+      <option>MTI-727 - שני קבועים ושתי דלתות</option>
+      <option>MTI-728 - הרמוניקה ארבע דלתות</option>
+      <option>MTI-729 - קבוע דלת ודלת הרמוניקה</option>
+      <option>MTI-730 - דלת ודלת הרמוניקה</option>
+    </select>
+  </div>
 
   <button type="submit">חשב מחיר</button>
   <div class="result" id="resultBox"></div>
@@ -150,36 +165,12 @@
 <script>
   const form = document.getElementById('calculatorForm');
   const resultBox = document.getElementById('resultBox');
-  const modelSelect = document.getElementById('model');
+  const shapeSelect = document.getElementById('shape');
+  const modelContainer = document.getElementById('modelContainer');
 
-  function updateModelOptions() {
-    const shape = document.getElementById('shape').value;
-    modelSelect.innerHTML = '';
-
-    if (shape === 'front') {
-      const models = [
-        'MTI-718 - דלת',
-        'MTI-719 - WALK-IN קבוע',
-        'MTI-720 - קבוע',
-        'MTI-721 - קבוע ודלת',
-        'MTI-722 - שתי דלתות',
-        'MTI-723 - הרמוניקה שתי דלתות',
-        'MTI-724 - שני קבועים ודלת',
-        'MTI-725 - קבוע ושתי דלתות',
-        'MTI-726 - קבוע והרמוניקה שתי דלתות',
-        'MTI-727 - שני קבועים ושתי דלתות',
-        'MTI-728 - הרמוניקה ארבע דלתות',
-        'MTI-729 - קבוע דלת ודלת הרמוניקה',
-        'MTI-730 - דלת ודלת הרמוניקה'
-      ];
-      models.forEach(model => {
-        const option = document.createElement('option');
-        option.value = model;
-        option.textContent = model;
-        modelSelect.appendChild(option);
-      });
-    }
-  }
+  shapeSelect.addEventListener('change', () => {
+    modelContainer.style.display = shapeSelect.value === 'front' ? 'block' : 'none';
+  });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -201,9 +192,9 @@
 
     resultBox.style.display = 'block';
     resultBox.innerHTML = `
-      סה\"כ מ\"ר: ${area.toFixed(2)} מ\"ר<br>
-      <strong>המחיר לפני מע״מ:</strong> ₪${price.toFixed(2)}<br>
-      <strong>המחיר כולל מע״מ (18%):</strong> ₪${priceWithVAT.toFixed(2)}
+      סה"כ מ"ר: ${area.toFixed(2)} מ"ר<br>
+      המחיר לפני מע"מ: ₪${price.toFixed(2)}<br>
+      המחיר כולל מע"מ (18%): ₪${priceWithVAT.toFixed(2)}
     `;
   });
 </script>
